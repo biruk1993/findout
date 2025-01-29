@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options Page</title>
+    <link rel="stylesheet" href="styles3.css">
+    <script>
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("active");
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Hamburger Menu -->
+    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+
+    <!-- Sidebar Menu -->
+    <div id="menu" class="sidebar">
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+    </div>
+  
+    
+    <div class="container">
+        <h1>What are you looking for?</h1>
+
+        <div class="options">
+            <a href="children.html" class="option-card">
+                <img src="children's.jpeg" alt="Children">
+                <h3>Children</h3>
+            </a>
+
+            <a href="car.html" class="option-card">
+                <img src="cars.jpeg" alt="Car">
+                <h3>Car</h3>
+            </a>
+
+            <a href="phone.html" class="option-card">
+                <img src="phones.jpeg" alt="Phone">
+                <h3>Phone</h3>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

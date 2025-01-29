@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="styles4.css">
+    <script>
+        // Function to handle the profile picture upload
+        function changeProfilePhoto(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById("profile-photo").src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Function to handle popup image
+        function openImage(src) {
+            document.getElementById("popup-image").src = src;
+            document.getElementById("popup-container").style.display = "flex";
+        }
+
+        function closePopup() {
+            document.getElementById("popup-container").style.display = "none";
+        }
+    </script>
+</head>
+<body>
+
+    <div class="profile-container">
+        <!-- Profile Section -->
+        <div class="profile">
+            <div class="profile-photo-container">
+                <img id="profile-photo" src="https://via.placeholder.com/150" alt="Profile Picture">
+                <input type="file" id="file-upload" accept="image/*" onchange="changeProfilePhoto(event)" />
+            </div>
+            <h2 id="user-name">John Doe</h2>
+            <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec dictum felis.</p>
+
+            <!-- Personal Info -->
+            <div class="info">
+                <p><strong>Email:</strong> <span id="user-email">john.doe@example.com</span></p>
+                <p><strong>Phone:</strong> <span id="user-phone">+123 456 789</span></p>
+            </div>
+
+            <!-- Address Section -->
+            <div class="address">
+                <h3>Address</h3>
+                <p id="user-address">Addis Ababa, Ethiopia</p>
+            </div>
+        </div>
+
+        <!-- Gallery Section -->
+        <h3>You Posted Photos</h3>
+        <div class="gallery">
+            <img src="https://via.placeholder.com/150" alt="Photo 1" onclick="openImage(this.src)">
+            <img src="https://via.placeholder.com/150" alt="Photo 2" onclick="openImage(this.src)">
+            <img src="https://via.placeholder.com/150" alt="Photo 3" onclick="openImage(this.src)">
+            <img src="https://via.placeholder.com/150" alt="Photo 4" onclick="openImage(this.src)">
+        </div>
+    </div>
+
+    <!-- Popup Image Viewer -->
+    <div id="popup-container" class="popup-container" onclick="closePopup()">
+        <img id="popup-image" src="" alt="Enlarged Photo">
+    </div>
+
+</body>
+</html>

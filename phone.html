@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Upload Page</title>
+    <link rel="stylesheet" href="styles5.css">
+    <script>
+        // Function to handle the photo upload and display the uploaded photo with time
+        let photoList = [];
+
+        function handleUpload(event) {
+            const photoInput = document.getElementById("photo-input");
+            const dateInput = document.getElementById("date-input");
+            const timeInput = document.getElementById("time-input");
+            const addressInput = document.getElementById("address-input");
+
+            const file = photoInput.files[0];
+            const date = dateInput.value;
+            const time = timeInput.value;
+            const address = addressInput.value;
+
+            if (file && date && time && address) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const newPhoto = {
+                        imageSrc: e.target.result,
+                        date: date,
+                        time: time,
+                        address: address,
+                    };
+
+                    photoList.push(newPhoto);
+                    displayPhotos();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert("Please fill all fields before uploading!");
+            }
+        }
+
+        // Display uploaded photos
+        function displayPhotos() {
+            const photoContainer = document.getElementById("photo-container");
+            photoContainer.innerHTML = ''; // Clear the previous photos
+
+            // Display all uploaded photos
+            photoList.forEach(photo => {
+                const photoElement = document.createElement('div');
+                photoElement.classList.add('photo-item');
+                photoElement.innerHTML = `
+                    <img src="${photo.imageSrc}" alt="Uploaded Photo">
+                    <p>Date: ${photo.date}, Time: ${photo.time}</p>
+                    <p>Address: ${photo.address}</p>
+                `;
+                photoContainer.appendChild(photoElement);
+            });
+        }
+
+        // Filter photos by time/day/year
+        function filterPhotos() {
+            const filterDate = document.getElementById("filter-date").value;
+            const filterTime = document.getElementById("filter-time").value;
+
+            const filteredPhotos = photoList.filter(photo => {
+                const photoDate = photo.date;
+                const photoTime = photo.time;
+
+                return (photoDate.includes(filterDate) && photoTime.includes(filterTime));
+            });
+
+            // Display filtered photos
+            const photoContainer = document.getElementById("photo-container");
+            photoContainer.innerHTML = '';
+            filteredPhotos.forEach(photo => {
+                const photoElement = document.createElement('div');
+                photoElement.classList.add('photo-item');
+                photoElement.innerHTML = `
+                    <img src="${photo.imageSrc}" alt="Filtered Photo">
+                    <p>Date: ${photo.date}, Time: ${photo.time}</p>
+                    <p>Address: ${photo.address}</p>
+                `;
+                photoContainer.appendChild(photoElement);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="upload-container">
+        <h2>Upload a Photo</h2>
+        <div class="input-container">
+            <label for="photo-input">Choose a Photo:</label>
+            <input type="file" id="photo-input" accept="image/*">
+        </div>
+        <div class="input-container">
+            <label for="date-input">Date:</label>
+            <input type="date" id="date-input">
+        </div>
+        <div class="input-container">
+            <label for="time-input">Time:</label>
+            <input type="time" id="time-input">
+        </div>
+        <div class="input-container">
+            <label for="address-input">Address:</label>
+            <input type="text" id="address-input" placeholder="Enter your address">
+        </div>
+        <button onclick="handleUpload()">Upload</button>
+    </div>
+
+    <div class="filter-container">
+        <h2>Filter Photos</h2>
+        <div class="input-container">
+            <label for="filter-date">Filter by Date:</label>
+            <input type="date" id="filter-date">
+        </div>
+        <div class="input-container">
+            <label for="filter-time">Filter by Time:</label>
+            <input type="time" id="filter-time">
+        </div>
+        <button onclick="filterPhotos()">Filter</button>
+    </div>
+
+    <div class="photos-list">
+        <h2>Uploaded Photos</h2>
+        <div id="photo-container" class="photo-container">
+            <!-- Uploaded photos will be displayed here -->
+        </div>
+    </div>
+</body>
+</html>
